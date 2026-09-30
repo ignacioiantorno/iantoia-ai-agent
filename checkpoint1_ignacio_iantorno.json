@@ -1,0 +1,316 @@
+{
+  "name": "IANTOIA - Lead Qualification Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "responseMode": "responseNodes"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9a520345-4405-49b4-a78e-6e8ddf7f5734",
+      "name": "When chat message received",
+      "webhookId": "0a9f5316-5616-4478-917c-0262dc5c62c9"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "ROL\n\nSos el Asistente de Calificación de Leads de IANTOIA.\n\nIANTOIA es una empresa especializada en automatización de procesos, optimización operativa e inteligencia artificial aplicada a negocios.\n\nOBJETIVO\n\nTu objetivo es conversar con potenciales clientes, comprender qué problema tienen y detectar oportunidades donde IANTOIA pueda ayudarlos.\n\nDebés identificar, cuando sea posible:\n\n- Nombre\n- Empresa\n- Proceso que desea mejorar\n- Problema actual\n- Herramientas que utiliza\n- Volumen aproximado de trabajo\n- Resultado esperado\n- Urgencia\n\nREGLAS\n\nNo inventes información.\n\nSi falta información importante, hacé preguntas breves al usuario.\n\nNo inventes nombres, empresas, presupuestos ni problemas.\n\nNo brindes asesoramiento legal, médico, financiero o contable.\n\nNo prometas precios ni tiempos de implementación.\n\nUtilizá las herramientas disponibles únicamente cuando corresponda.\n\nCuando exista una oportunidad comercial clara y tengas información suficiente, registrá el lead utilizando la herramienta disponible.\n\nSi no existe información suficiente, continuá conversando con el usuario.\n\nESCALAMIENTO\n\nSi el usuario solicita una cotización formal, un contrato, compromisos comerciales o una solución fuera de tu alcance, indicá que el caso necesita revisión humana.\n\nESTILO\n\nRespondé de manera profesional, breve y clara.\n\nNo utilices lenguaje inclusivo.",
+          "maxIterations": 7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "98e8b7de-024e-427b-96a5-bcafed8fac5a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        96,
+        208
+      ],
+      "id": "e75a7ef1-9d5a-41d6-b461-ddaa2af55542",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Usá esta herramienta únicamente para registrar un lead comercial de IANTOIA cuando el usuario haya explicado una necesidad concreta relacionada con automatización, optimización de procesos o inteligencia artificial.\n\nNo la uses para saludos ni consultas generales.\n\nCompletá los campos solo con información presente en la conversación. No inventes datos. Si un dato no está disponible, dejalo vacío o indicá \"No informado\".\n\nRegistrá un lead una sola vez por oportunidad.",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1oY5Diu0FtBKskq33Bqdx6pO-cFRpvhBiufemtvGxpWc",
+          "mode": "list",
+          "cachedResultName": "IANTOIA Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oY5Diu0FtBKskq33Bqdx6pO-cFRpvhBiufemtvGxpWc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oY5Diu0FtBKskq33Bqdx6pO-cFRpvhBiufemtvGxpWc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Fecha": "={{ $now.format('dd/MM/yyyy') }}",
+            "Nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Nombre', ``, 'string') }}",
+            "Empresa": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Empresa', ``, 'string') }}",
+            "Proceso": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Proceso', ``, 'string') }}",
+            "Problema": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Problema', ``, 'string') }}",
+            "Herramientas": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Herramientas', ``, 'string') }}",
+            "Volumen": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Volumen', ``, 'string') }}",
+            "Objetivo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Objetivo', ``, 'string') }}",
+            "Urgencia": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Urgencia', ``, 'string') }}",
+            "Resumen": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Resumen', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Empresa",
+              "displayName": "Empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Proceso",
+              "displayName": "Proceso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Problema",
+              "displayName": "Problema",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Herramientas",
+              "displayName": "Herramientas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Volumen",
+              "displayName": "Volumen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Objetivo",
+              "displayName": "Objetivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Urgencia",
+              "displayName": "Urgencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Resumen",
+              "displayName": "Resumen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        384,
+        208
+      ],
+      "id": "fe4c5f4e-3084-4c62-9bce-cf696157f3ae",
+      "name": "Append row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "XElnBVVjtUCP0pEG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "ignacioiantorno@gmail.com",
+        "subject": "[IANTOIA] Log de ejecución del agente",
+        "message": "=Ejecución del agente comercial IANTOIA  Resultado:  {{ $json.output }}  Fecha: {{ $now }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        0
+      ],
+      "id": "8280677a-2fe5-4295-b5ed-2b889445b558",
+      "name": "Send a message",
+      "webhookId": "d5304cde-390d-4d22-aa86-2c83d5f6e07b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "mYFYQlPBBNO4PbRw",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        544,
+        -144
+      ],
+      "id": "53f22239-e4fc-451f-adcc-701ebaf0646f",
+      "name": "Chat",
+      "webhookId": "d56c3696-5123-4475-8400-c503cc1805b1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "b77d700d-5849-4d10-819a-99c088fac258",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "27433a8b6d5344e1ad3855d2e46de878e6e83c2653405c51c673dcf6bd521b28"
+  },
+  "nodeGroups": [],
+  "id": "YKq1HkYwSjS2ocKR",
+  "tags": []
+}
